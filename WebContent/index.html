@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.getJSON demo</title>
+  
+  <link rel="stylesheet" type="text/css" href="style/style.css">
+  <link rel="stylesheet" type="text/css" href="style/sequences.css">
+  <link rel="stylesheet" type='text/css' href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" type='text/css' href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext'>
+  
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+  <script type="text/javascript" src="http://dimplejs.org/dist/dimple.v2.1.6.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.4.0/randomColor.min.js"></script>
+  <script type="text/javascript" src="js/sequences.js"></script>
+  <script type="text/javascript" src="js/leads-methods.js"></script>
+  <script type="text/javascript" src="js/fancymenu.js"></script>
+  
+</head>
+
+<body>
+
+<div id="top">
+	<div class="centered">
+		<div id="logo1" class="logo"></div>
+		<div id="logo2" class="logo"></div>
+	</div>
+</div>
+
+<div id="left">
+
+	<div id="page">
+		<h1>VISUALIZATION</h1>
+	
+		<form method="post" action="">
+	    
+	    	<!-- We are going to use jQuery to hide the select element and replace it -->
+	        
+			<select name="fancySelect" class="makeMeFancy">
+	        
+	        	<!-- Notice the HTML5 data attributes -->
+	        
+		        <option value="0" selected="selected" data-skip="1">Choose visualization...</option>
+	        	<option value="1" data-icon="img/products/iphone.png" data-html-text="Price distribution&lt;i&gt;Visualization 1&lt;/i&gt;">Price distribution</option>
+	        	<option value="2" data-icon="img/products/ipod.png" data-html-text="Mentions analysis&lt;i&gt;Visualization 2&lt;/i&gt;">Mentions analysis</option>
+	            <option value="3" data-icon="img/products/air.png" data-html-text="Name&lt;i&gt;Visualization 3&lt;/i&gt;">Visualization 3</option>
+			</select>
+	    </form>
+	    
+	</div>
+	
+	<hr/>
+	
+	<div id="page">
+	
+		<h1>OPTIONS</h1>
+	
+		<div id="menus">
+			<form id="vis1" class="pure-form pure-form-stacked" style="display: none;">
+			    <fieldset>
+			        <label for="vis1keywords">Keywords</label>
+			        <select multiple id="vis1keywords" class="width100">
+			            <option>adidas Boost</option>
+			            <option>Nike Free</option>
+			            <option>Nike Something</option>
+			        </select>
+			        
+			        <label for="vis1websites">Web Sites</label>
+			        <select multiple id="vis1websites" class="width100">
+			            <option>Shop 1</option>
+			            <option>Shop 2</option>
+			        </select>
+			        
+			        <label for="vis1startweek">Start Week</label>
+			        <input type="week" id="vis1startweek" class="width100"></input>
+			        
+			        <label for="vis1endweek">End Week</label>
+			        <input type="week" id="vis1endweek" class="width100"></input>
+					
+					<br/>
+					
+			        <button type="button" id="vis1submit" onclick="return onVisInputReady(1);" class="pure-button pure-button-primary submitbut">Submit</button>
+			    </fieldset>
+			</form>
+			
+			<form id="vis2" class="pure-form pure-form-stacked" style="display: none;">
+			    <fieldset>
+			    
+			        <label for="vis2cat1name">Category 1</label>
+			        <input id="vis2cat1name" type="text" placeholder="Category Name" class="width100"/>
+			        
+			        <label for="vis2cat1keywords">Keywords</label>
+			        <select multiple id="vis2cat1keywords" class="width100">
+			            <option>adidas Boost</option>
+			            <option>Nike Free</option>
+			            <option>Nike Something</option>
+			        </select>			        
+			        
+			        <label for="vis2cat2name">Category 2</label>
+			        <input id="vis2cat2name" type="text" placeholder="Category Name" class="width100"/>
+			        
+			        <label for="vis2cat2keywords">Keywords</label>
+			        <select multiple id="vis2cat2keywords" class="width100">
+			            <option>adidas Boost</option>
+			            <option>Nike Free</option>
+			            <option>Nike Something</option>
+			        </select>
+			        
+			        <label for="vis2websites">Web Sites</label>
+			        <select multiple id="vis2websites" class="width100">
+			            <option>Site 1</option>
+			            <option>Site 2</option>
+			        </select>
+			        
+			        <label for="vis2startday">Start Day</label>
+			        <input type="date" id="vis2startday" class="width100"></input>
+			        
+			        <label for="vis2endday">End Day</label>
+			        <input type="date" id="vis2endday" class="width100"></input>
+					
+					<br/>
+					
+			        <button type="button" id="vis2submit" onclick="return onVisInputReady(2);" class="pure-button pure-button-primary submitbut" id="submitbut">Submit</button>
+			    </fieldset>
+			</form>
+			
+			<form id="vis3" class="pure-form pure-form-stacked" style="display: none;">
+			    <fieldset>
+			    
+			        <label for="state">State</label>
+			        <select id="state"  class="width100">
+			            <option>AL</option>
+			            <option>CA</option>
+			            <option>IL</option>
+			        </select>
+					
+					<br/>
+					
+			        <button type="button" onclick="return test_call();" class="pure-button pure-button-primary" id="submitbut">Submit</button>
+			    </fieldset>
+			</form>
+		</div>
+	
+	</div>
+	
+</div>
+
+<div id="middle">
+	<div id="chartContainer">
+<!-- 		<div id="seqmain">
+		    <div id="sequence"></div>
+		    <div id="chart">
+		    	<div id="explanation" style="visibility: hidden;">
+		        	<span id="percentage" style="color: white;"></span><br/>
+		        		of visits begin with this sequence of pages
+		        </div>
+		    </div>
+	    </div>
+	    <div id="seqsidebar">
+	    	<input type="checkbox" id="togglelegend"> Legend<br/>
+	    	<div id="legend" style="visibility: hidden;"></div>
+	    </div>
+	    <script type="text/javascript" src="js/sequences.js"></script>
+	    <script type="text/javascript">
+	    	d3.select(self.frameElement).style("height", "700px");
+	    </script> -->
+	</div>
+</div>
+ 
+</body>
+</html>
