@@ -51,15 +51,26 @@ function getVis2InputJson() {
 	var websites = $('#vis2websites').val();
 	var startday = $('#vis2startday').val();
 	var endday   = $('#vis2endday').val();
+	var startts  = date2timestamp(startday);
+	var endts    = date2timestamp(endday);
 	
 	return JSON.stringify({	cat1name: cat1name, cat1keys: cat1keys, 
 		cat2name: cat2name, cat2keys: cat2keys,
-		websites: websites, startday: startday, endday: endday});
+		websites: websites, startts: startts, endts: endts});
+}
+
+function date2timestamp(myDate) {
+	myDate=myDate.split("-");
+	var newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
+	var ts = new Date(newDate).getTime();
+	console.log(ts);
+	return ts;
 }
 
 
 function visualization2_generate(error,json) {
 	console.log("Entering visualization2_generate()");
+	console.log(json);
 	//
 	if(error) { 
 		handle_error(error);
@@ -326,7 +337,7 @@ function drawLegend() {
       .attr("y", li.h / 2)
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
-      .text(function(d) { return d.key.split(".")[1]; });
+      .text(function(d) { return d.key.substring(d.key.indexOf(".")+1); });
 }
 
 function toggleLegend() {

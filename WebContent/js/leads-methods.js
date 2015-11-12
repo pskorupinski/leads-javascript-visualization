@@ -8,7 +8,7 @@ function connectREST(name,json,method) {
 }
 
 function handle_error(error) {
-	console.warn("Error during connective to server");
+	console.warn("Error during connecting to server");
 	console.warn(error);
 }
 
@@ -72,8 +72,8 @@ function getVis1InputJson() {
 	var startweek= $('#vis1startweek').val();
 	var endweek  = $('#vis1endweek').val();
 	
-	var periodstart = weekInputToTimestamp(startweek));
-	var periodend   = weekInputToTimestamp(endweek,true));
+	var periodstart = weekInputToTimestamp(startweek);
+	var periodend   = weekInputToTimestamp(endweek,true);
 	
 	return JSON.stringify({
 		keywords:    keywords, 
